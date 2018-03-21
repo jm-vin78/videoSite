@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <link href="{% static "css/home.css" %}" rel="stylesheet">
+
+    <title>Home page</title>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Оцените видео</h1>
+</div>
+
+<div class="finder">
+    <div class="topics">Выберите предмет:
+        {% if subject_list %}
+            <select id="select_subject">
+                {% for subject in subject_list %}
+                    <option id='{{ subject.idsubject }}' value="{{ subject.idsubject }}">{{ subject.name }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+    <div class="topics">Выберите раздел:
+        <select id="select_topic">
+            <option value="">---</option>
+        </select>
+    </div>
+    <div class="topics">Выберите тему:
+        <select id="select_subtopic">
+            <option value="">---</option>
+        </select>
+    </div>
+</div>
+
+<div class="content">
+    <div class="column left">
+        <iframe width="520" height="415"
+                src="https://www.youtube.com/embed/RcyJBB4pdvk">
+        </iframe>
+    </div>
+    <div class="column right">
+        <h3>Ответьте на несколько вопросов.</h3>
+    </div>
+</div>
+
+<div class="footer">
+</div>
+
+<script type="text/javascript" src="{% static 'js/load_topic.js' %}"></script>
+
+</body>
+</html>

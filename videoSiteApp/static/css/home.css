@@ -1,0 +1,53 @@
+/* header*/
+.header {
+    background-color: #E1E1E1;
+    text-align: center;
+    padding: 20px;
+}
+
+/* navigation bar */
+.navbar {
+
+}
+
+/* themes */
+.topics {
+    padding: 5px;
+}
+
+.column {
+    float: left;
+    padding: 40px;
+}
+
+.column.left {
+    width: 50%;
+    padding-left: 5%;
+}
+
+.column.right {
+    width: 50%;
+}
+
+.content:after {
+    content:"";
+    display: table;
+    clear: both;
+}
+
+.finder {
+    background-color: #FFFFFF;
+}
+
+.find {
+    text-align: center;
+    padding-left: 1%;
+    padding-top: 1%;
+}
+
+/* footer */
+.footer {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 10px;
+}
