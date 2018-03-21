@@ -76,6 +76,7 @@ class Video(models.Model):
     dislikes = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     category = models.TextField(blank=True, null=True)
+    subtopicid = models.IntegerField(db_column='subtopicId')
 
     # has foreign key to channel - channelUrl, on delete cascade
 

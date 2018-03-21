@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Subject, Topic, Subtopic
+from .models import Subject, Topic, Subtopic, Video
 from django.core import serializers
 from django.core.handlers.base import logger
 from django.http import HttpResponse
@@ -48,3 +48,19 @@ def get_subtopic(request):
             return HttpResponse(status=500)
         else:
             return HttpResponse(status=404)
+
+
+def get_video_url(request):
+    if request.method == 'GET':
+        try:
+            data = serializers.serialize('json', Video.objects.filter(subtopicid=request.GET['idsubtopic']))
+            response = HttpResponse()
+            response['Content-Type'] = "text/javascript"
+            response.write(data)
+            return response
+        except Exception as e:
+            logger.exception("Failed to get videos" + str(e))
+            return HttpResponse(status=500)
+        else:
+            return HttpResonse(status=400)
+

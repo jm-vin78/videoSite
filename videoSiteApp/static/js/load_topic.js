@@ -42,6 +42,29 @@ $('select#select_topic').change(function () {
             for (var i = 0; i < json.length; i++) {
                 $select_subtopic.append('<option id=' + json[i].pk + ' value=' + json[i].fields.name + '>' + json[i].fields.name + '</option>');
             }
+
+            $select_subtopic.change();
+        }
+    });
+});
+
+$('select#select_subtopic').change(function () {
+    var id = $(this).find(':selected')[0].id;
+    $.ajax({
+        type: 'GET',
+        url: 'get_video_url',
+        data: {"idsubtopic": id},
+        success: function (data) {
+            var json = $.parseJSON(data);
+            var $column_left = $('div#videos_column');
+
+            $column_left.empty();
+
+            for (var i = 0; i < json.length; i++) {
+                var url = json[i].fields.url;
+                url = url.replace(/https:\/\/www.youtube.com\/watch.v=(.+)/, "https://www.youtube.com/embed/$1");
+                $column_left.append('<iframe width="520" height="415" src="' + url + '" id="' + json[i].pk + '"></iframe>');
+            }
         }
     });
 });
