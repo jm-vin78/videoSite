@@ -64,6 +64,7 @@ $('select#select_subtopic').change(function () {
                 var url = json[i].fields.url;
                 url = url.replace(/https:\/\/www.youtube.com\/watch.v=(.+)/, "https://www.youtube.com/embed/$1");
                 $column_left.append('<iframe width="520" height="415" src="' + url + '" id="' + json[i].pk + '"></iframe>');
+                $column_left.append('<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#video-id\').val(\'' + json[i].pk + '\')" style="cursor: pointer">Оценить видео</button>');
             }
         }
     });

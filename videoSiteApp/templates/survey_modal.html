@@ -1,0 +1,131 @@
+<div class="modal fade" id="firstSurveyModal" tabindex="-1" role="dialog" aria-labelledby="moModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Опрос</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <br class="modal-body">
+            <table class="table table-striped">
+                <col width="60%">
+                <col width="40">
+                <tr>
+                    <td>
+                        <label>Видеоролик доступен? </label>
+                    </td>
+                    <td>
+                        <input type="radio" name="available" value="1" id="input-available-yes"> Да</br>
+                        <input type="radio" name="available" value="0" id="input-available-no"> Нет</br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Видеоролик относится к теме? </label>
+                    </td>
+                    <td>
+                        <input type="radio" name="relevant" value="1" id="input-relevant-yes"> Да</br>
+                        <input type="radio" name="relevant" value="0" id="input-relevant-no"> Нет</br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Какому уровню соответствует видеоролик? </label>
+                    </td>
+                    <td>
+                        <input type="radio" name="level" value="school" id="input-level-school"> Школьному </br>
+                        <input type="radio" name="level" value="university" id="input-level-uni">
+                        Университетскому </br>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" id="video-id">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="close-button" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="save-button" onclick="onFirstModalClick()">Далее
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="secondSurveyModal" tabindex="-1" role="dialog" aria-labelledby="moModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Продолжение опроса</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <br class="modal-body">
+            <table class="table table-striped">
+                <col width="60%">
+                <col width="40">
+                <tr>
+                    <td>
+                        <label>Оцените качество контента: </label>
+                    </td>
+                    <td>
+                        <span id="ex18-label-1" class="hidden">Example slider label</span>
+                        <input id="ex19" type="text"
+                               data-provide="slider"
+                               data-slider-ticks="[1, 2, 3]"
+                               data-slider-ticks-labels='["short", "medium", "long"]'
+                               data-slider-min="1"
+                               data-slider-max="3"
+                               data-slider-step="1"
+                               data-slider-value="3"
+                               data-slider-tooltip="hide"/>
+                        {#                            множество ошибок, мешают#}
+                        {#                            ошибки есть, но не мешают#}
+                        {#                            ошибок нет#}
+                        {#                            <input type="radio" name="available" value="да" id="input-available-yes"> Да</br>#}
+                        {#                            <input type="radio" name="available" value="нет" id="input-available-no"> Нет</br>#}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Подача материала: </label>
+                    </td>
+                    <td>
+                        {#                            не понравилась#}
+                        {#                            понравилась#}
+                        {#                            <input type="radio" name="relevant" value="да" id="input-relevant-yes"> Да</br>#}
+                        {#                            <input type="radio" name="relevant" value="нет" id="input-relevant-no"> Нет</br>#}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Информативность видеоролика: </label>
+                    </td>
+                    <td>
+                        {#                            тема не раскрыта#}
+                        {#                            тема частично раскрыта#}
+                        {#                            тема раскрыта полностью#}
+                        {#                            <input type="radio" name="level" value="школьному" id="input-level-school"> Школьному </br>#}
+                        {#                            <input type="radio" name="level" value="университетскому" id="input-level-uni">#}
+                        {#                            Университетскому </br>#}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Качество видео/аудио: </label>
+                    </td>
+                    <td>
+                        {#                            качество плохое, мешает просмотру#}
+                        {#                            качество среднее, не мешает просмотру#}
+                        {#                            качество хорошее#}
+                    </td>
+                </tr>
+            </table>
+            </br>
+            <input type="hidden" id="video-id">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="close-button" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="save-button" onclick="onSecondModalClick()">Отправить
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
