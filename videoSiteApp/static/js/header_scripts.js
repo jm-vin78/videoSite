@@ -1,4 +1,4 @@
-function onFirstModalClick() {
+function onFirstModalSubmit() {
     var inputAvailable = $('input[name=available]:checked');
     var inputRelevant = $('input[name=relevant]:checked');
     var inputLevel = $('input[name=level]:checked');
@@ -33,10 +33,26 @@ function onFirstModalClick() {
     inputLevel.prop("checked", false);
 }
 
-function onSecondModalClick() {
-    $('#secondSurveyModal').modal('hide');
+function onSecondModalSubmit() {
+    var inputMistakes = $('input[name=mistakes]:checked');
+    var inputPresentation = $('input[name=presentation]:checked');
+    var inputInformative = $('input[name=informative]:checked');
+    var inputQuality = $('input[name=quality]:checked');
+
+    var mistakes = inputMistakes.val();
+    var presentation = inputPresentation.val();
+    var informative = inputInformative.val();
+    var quality = inputQuality.val();
+
 
     //TODO Read values and post them to server.
+    showSuccessMessage();
+    $('#secondSurveyModal').modal('hide');
+
+    inputMistakes.prop("checked", false);
+    inputPresentation.prop("checked", false);
+    inputInformative.prop("checked", false);
+    inputQuality.prop("checked", false);
 }
 
 function showValidationErrorMessage() {
@@ -46,3 +62,8 @@ function showValidationErrorMessage() {
 function showSuccessMessage() {
     swal("Готово", "Данные были отправлены на сервер.", "success");
 }
+
+function clearFirstModal() {
+
+}
+

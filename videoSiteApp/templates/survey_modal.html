@@ -42,7 +42,7 @@
             <input type="hidden" id="video-id">
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="close-button" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" id="save-button" onclick="onFirstModalClick()">Далее
+                <button type="button" class="btn btn-primary" id="save-button" onclick="onFirstModalSubmit()">Далее
                 </button>
             </div>
         </div>
@@ -59,28 +59,16 @@
             </div>
             <br class="modal-body">
             <table class="table table-striped">
-                <col width="60%">
-                <col width="40">
+                <col width="50%">
+                <col width="50">
                 <tr>
                     <td>
-                        <label>Оцените качество контента: </label>
+                        <label>Оцените качество контента (наличие ошибок): </label>
                     </td>
                     <td>
-                        <span id="ex18-label-1" class="hidden">Example slider label</span>
-                        <input id="ex19" type="text"
-                               data-provide="slider"
-                               data-slider-ticks="[1, 2, 3]"
-                               data-slider-ticks-labels='["short", "medium", "long"]'
-                               data-slider-min="1"
-                               data-slider-max="3"
-                               data-slider-step="1"
-                               data-slider-value="3"
-                               data-slider-tooltip="hide"/>
-                        {#                            множество ошибок, мешают#}
-                        {#                            ошибки есть, но не мешают#}
-                        {#                            ошибок нет#}
-                        {#                            <input type="radio" name="available" value="да" id="input-available-yes"> Да</br>#}
-                        {#                            <input type="radio" name="available" value="нет" id="input-available-no"> Нет</br>#}
+                        <input type="radio" name="mistakes" value="0" id="input-mistakes-yes"> множество ошибок, мешают</br>
+                        <input type="radio" name="mistakes" value="1" id="input-mistakes-some"> ошибки есть, но не мешают</br>
+                        <input type="radio" name="mistakes" value="2" id="input-mistakes-no"> ошибок нет</br>
                     </td>
                 </tr>
                 <tr>
@@ -88,10 +76,9 @@
                         <label>Подача материала: </label>
                     </td>
                     <td>
-                        {#                            не понравилась#}
-                        {#                            понравилась#}
-                        {#                            <input type="radio" name="relevant" value="да" id="input-relevant-yes"> Да</br>#}
-                        {#                            <input type="radio" name="relevant" value="нет" id="input-relevant-no"> Нет</br>#}
+                        <input type="radio" name="presentation" value="0" id="input-presentation-no"> не понравилась</br>
+                        <input type="radio" name="presentation" value="1" id="input-presentation-some"> выборочно понравилась</br>
+                        <input type="radio" name="presentation" value="2" id="input-presentation-yes"> понравилась</br>
                     </td>
                 </tr>
                 <tr>
@@ -99,12 +86,9 @@
                         <label>Информативность видеоролика: </label>
                     </td>
                     <td>
-                        {#                            тема не раскрыта#}
-                        {#                            тема частично раскрыта#}
-                        {#                            тема раскрыта полностью#}
-                        {#                            <input type="radio" name="level" value="школьному" id="input-level-school"> Школьному </br>#}
-                        {#                            <input type="radio" name="level" value="университетскому" id="input-level-uni">#}
-                        {#                            Университетскому </br>#}
+                        <input type="radio" name="informative" value="0" id="input-informative-no"> тема не раскрыта</br>
+                        <input type="radio" name="informative" value="1" id="input-informative-some"> тема частично раскрыта</br>
+                        <input type="radio" name="informative" value="2" id="input-informative-yes"> тема  полностью раскрыта</br>
                     </td>
                 </tr>
                 <tr>
@@ -112,9 +96,9 @@
                         <label>Качество видео/аудио: </label>
                     </td>
                     <td>
-                        {#                            качество плохое, мешает просмотру#}
-                        {#                            качество среднее, не мешает просмотру#}
-                        {#                            качество хорошее#}
+                        <input type="radio" name="quality" value="0" id="input-quality-no"> качество плохое, мешает просмотру</br>
+                        <input type="radio" name="quality" value="1" id="input-quality-some"> качество среднее, не мешает просмотру</br>
+                        <input type="radio" name="quality" value="2" id="input-quality-yes"> качество хорошее</br>
                     </td>
                 </tr>
             </table>
@@ -122,7 +106,7 @@
             <input type="hidden" id="video-id">
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="close-button" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" id="save-button" onclick="onSecondModalClick()">Отправить
+                <button type="button" class="btn btn-primary" id="save-button" onclick="onSecondModalSubmit()">Отправить
                 </button>
             </div>
         </div>
