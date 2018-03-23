@@ -80,8 +80,8 @@ $(document).ready(function () {
     var $select_subject = $('select#select_subject');
     $select_subject.change()
 
-    $('.modal').on('hidden.bs.modal', function(e){
-        $(this).removeData();
+    $('#firstSurveyModal').on('hidden.bs.modal', function(e){
+        $('#firstModalForm').trigger('reset');
     })
 });
 

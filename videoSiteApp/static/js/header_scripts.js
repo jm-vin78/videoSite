@@ -1,11 +1,7 @@
 function onFirstModalSubmit() {
-    var inputAvailable = $('input[name=available]:checked');
-    var inputRelevant = $('input[name=relevant]:checked');
-    var inputLevel = $('input[name=level]:checked');
-
-    var available = inputAvailable.val();
-    var relevant = inputRelevant.val();
-    var level = inputLevel.val();
+    var available = $('input[name=available]:checked').val();
+    var relevant = $('input[name=relevant]:checked').val();
+    var level = $('input[name=level]:checked').val();
 
     if (available == 0) {
         //If video not available - do not check other fields.
@@ -27,32 +23,17 @@ function onFirstModalSubmit() {
     }
 
     $('#firstSurveyModal').modal('hide');
-
-    inputAvailable.prop("checked", false);
-    inputRelevant.prop("checked", false);
-    inputLevel.prop("checked", false);
 }
 
 function onSecondModalSubmit() {
-    var inputMistakes = $('input[name=mistakes]:checked');
-    var inputPresentation = $('input[name=presentation]:checked');
-    var inputInformative = $('input[name=informative]:checked');
-    var inputQuality = $('input[name=quality]:checked');
+    var mistakes = $('input[name=mistakes]:checked').val();
+    var presentation = $('input[name=presentation]:checked').val();
+    var informative = $('input[name=informative]:checked').val();
+    var quality = $('input[name=quality]:checked').val();
 
-    var mistakes = inputMistakes.val();
-    var presentation = inputPresentation.val();
-    var informative = inputInformative.val();
-    var quality = inputQuality.val();
-
-
-    //TODO Read values and post them to server.
+    //TODO Post values to server.
     showSuccessMessage();
     $('#secondSurveyModal').modal('hide');
-
-    inputMistakes.prop("checked", false);
-    inputPresentation.prop("checked", false);
-    inputInformative.prop("checked", false);
-    inputQuality.prop("checked", false);
 }
 
 function showValidationErrorMessage() {
@@ -61,9 +42,5 @@ function showValidationErrorMessage() {
 
 function showSuccessMessage() {
     swal("Готово", "Данные были отправлены на сервер.", "success");
-}
-
-function clearFirstModal() {
-
 }
 
