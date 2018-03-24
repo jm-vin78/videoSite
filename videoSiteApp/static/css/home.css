@@ -3,6 +3,8 @@
     background-color: #E1E1E1;
     text-align: center;
     padding: 20px;
+    font-family: 'Lobster', serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* navigation bar */
@@ -17,7 +19,7 @@
 
 .card {
     /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     margin: 20px;
     background: #FAFAFA;
@@ -31,11 +33,26 @@ iframe {
 
 button {
     margin: 20px;
+    transition: 0.3s;
+
+}
+
+#mainMenuBar {
+    width: 100%;
+    margin-top: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.stick {
+    position: fixed;
+    top: 0;
+    z-index: 20;
 }
 
 /* On mouse-over, add a deeper shadow */
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .content {
@@ -45,9 +62,9 @@ button {
 }
 
 /*.content:after {*/
-    /*content:"";*/
-    /*display: table;*/
-    /*clear: both;*/
+/*content:"";*/
+/*display: table;*/
+/*clear: both;*/
 /*}*/
 
 .finder {

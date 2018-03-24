@@ -41,7 +41,6 @@
                     </tr>
                 </table>
             </form>
-            <input type="hidden" id="video-id">
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="close-button" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" id="save-button" onclick="onFirstModalSubmit()">Далее
@@ -60,61 +59,63 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <br class="modal-body">
-            <table class="table table-striped">
-                <col width="50%">
-                <col width="50">
-                <tr>
-                    <td>
-                        <label>Оцените качество контента (наличие ошибок): </label>
-                    </td>
-                    <td>
-                        <input type="radio" name="mistakes" value="0" id="input-mistakes-yes"> множество ошибок,
-                        мешают</br>
-                        <input type="radio" name="mistakes" value="1" id="input-mistakes-some"> ошибки есть, но не
-                        мешают</br>
-                        <input type="radio" name="mistakes" value="2" id="input-mistakes-no"> ошибок нет</br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Подача материала: </label>
-                    </td>
-                    <td>
-                        <input type="radio" name="presentation" value="0" id="input-presentation-no"> не
-                        понравилась</br>
-                        <input type="radio" name="presentation" value="1" id="input-presentation-some"> выборочно
-                        понравилась</br>
-                        <input type="radio" name="presentation" value="2" id="input-presentation-yes"> понравилась</br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Информативность видеоролика: </label>
-                    </td>
-                    <td>
-                        <input type="radio" name="informative" value="0" id="input-informative-no"> тема не
-                        раскрыта</br>
-                        <input type="radio" name="informative" value="1" id="input-informative-some"> тема частично
-                        раскрыта</br>
-                        <input type="radio" name="informative" value="2" id="input-informative-yes"> тема полностью
-                        раскрыта</br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Качество видео/аудио: </label>
-                    </td>
-                    <td>
-                        <input type="radio" name="quality" value="0" id="input-quality-no"> качество плохое, мешает
-                        просмотру</br>
-                        <input type="radio" name="quality" value="1" id="input-quality-some"> качество среднее, не
-                        мешает просмотру</br>
-                        <input type="radio" name="quality" value="2" id="input-quality-yes"> качество хорошее</br>
-                    </td>
-                </tr>
-            </table>
+            <form id="secondModalForm">
+                <table class="table table-striped">
+                    <col width="50%">
+                    <col width="50">
+                    <tr>
+                        <td>
+                            <label>Оцените качество контента (наличие ошибок): </label>
+                        </td>
+                        <td>
+                            <input type="radio" name="mistakes" value="0" id="input-mistakes-yes"> множество ошибок,
+                            мешают</br>
+                            <input type="radio" name="mistakes" value="1" id="input-mistakes-some"> ошибки есть, но не
+                            мешают</br>
+                            <input type="radio" name="mistakes" value="2" id="input-mistakes-no"> ошибок нет</br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Подача материала: </label>
+                        </td>
+                        <td>
+                            <input type="radio" name="presentation" value="0" id="input-presentation-no"> не
+                            понравилась</br>
+                            <input type="radio" name="presentation" value="1" id="input-presentation-some"> выборочно
+                            понравилась</br>
+                            <input type="radio" name="presentation" value="2" id="input-presentation-yes">
+                            понравилась</br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Информативность видеоролика: </label>
+                        </td>
+                        <td>
+                            <input type="radio" name="informative" value="0" id="input-informative-no"> тема не
+                            раскрыта</br>
+                            <input type="radio" name="informative" value="1" id="input-informative-some"> тема частично
+                            раскрыта</br>
+                            <input type="radio" name="informative" value="2" id="input-informative-yes"> тема полностью
+                            раскрыта</br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Качество видео/аудио: </label>
+                        </td>
+                        <td>
+                            <input type="radio" name="quality" value="0" id="input-quality-no"> качество плохое, мешает
+                            просмотру</br>
+                            <input type="radio" name="quality" value="1" id="input-quality-some"> качество среднее, не
+                            мешает просмотру</br>
+                            <input type="radio" name="quality" value="2" id="input-quality-yes"> качество хорошее</br>
+                        </td>
+                    </tr>
+                </table>
+            </form>
             </br>
-            <input type="hidden" id="video-id">
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="close-button" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" id="save-button" onclick="onSecondModalSubmit()">Отправить

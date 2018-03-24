@@ -2,11 +2,24 @@ function onFirstModalSubmit() {
     var available = $('input[name=available]:checked').val();
     var relevant = $('input[name=relevant]:checked').val();
     var level = $('input[name=level]:checked').val();
+    var video_id = $('#current-video-id').val();
 
     if (available == 0) {
         //If video not available - do not check other fields.
-        //TODO send to server video not available
-        showSuccessMessage();
+        $.ajax({
+            type: 'POST',
+            url: 'set_video_not_available',
+            data: {
+                "video_id": video_id
+            },
+            success: function () {
+                showSuccessMessage();
+                $('#firstSurveyModal').modal('hide');
+            },
+            error: function () {
+                showErrorMessage()
+            }
+        });
     } else {
         if (available === undefined || relevant === undefined || level === undefined) {
             //Check that all fields are filled by user.
@@ -15,14 +28,27 @@ function onFirstModalSubmit() {
         }
 
         if (relevant == 0 || level == "university") {
-            //TODO post data to server
-            showSuccessMessage();
+            $.ajax({
+                type: 'POST',
+                url: 'set_video_not_appropriate',
+                data: {
+                    "video_id": video_id,
+                    "relevant": relevant,
+                    "level": level
+                },
+                success: function () {
+                    showSuccessMessage();
+                    $('#firstSurveyModal').modal('hide');
+                },
+                error: function () {
+                    showErrorMessage()
+                }
+            });
         } else {
+            $('#firstSurveyModal').modal('hide');
             $('#secondSurveyModal').modal('show');
         }
     }
-
-    $('#firstSurveyModal').modal('hide');
 }
 
 function onSecondModalSubmit() {
@@ -30,10 +56,31 @@ function onSecondModalSubmit() {
     var presentation = $('input[name=presentation]:checked').val();
     var informative = $('input[name=informative]:checked').val();
     var quality = $('input[name=quality]:checked').val();
+    var video_id = $('#current-video-id').val();
 
-    //TODO Post values to server.
-    showSuccessMessage();
-    $('#secondSurveyModal').modal('hide');
+    if (mistakes === undefined || presentation === undefined || informative === undefined || quality === undefined) {
+        showValidationErrorMessage();
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'set_video_survey_result',
+        data: {
+            "mistakes": mistakes,
+            "presentation": presentation,
+            "informative": informative,
+            "quality": quality,
+            "video_id": video_id
+        },
+        success: function () {
+            showSuccessMessage();
+            $('#secondSurveyModal').modal('hide');
+        },
+        error: function () {
+            showErrorMessage()
+        }
+    });
 }
 
 function showValidationErrorMessage() {
@@ -42,5 +89,9 @@ function showValidationErrorMessage() {
 
 function showSuccessMessage() {
     swal("Готово", "Данные были отправлены на сервер.", "success");
+}
+
+function showErrorMessage() {
+    swal("Ошибка", "Не удалось отправить данные на сервер. Пожалуйста, повторите попытку позже.", "error");
 }
 

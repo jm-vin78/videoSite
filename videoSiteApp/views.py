@@ -3,6 +3,9 @@ from .models import Subject, Topic, Subtopic, Video
 from django.core import serializers
 from django.core.handlers.base import logger
 from django.http import HttpResponse
+from django.template.context_processors import csrf
+
+
 # Create your views here.
 
 
@@ -12,6 +15,7 @@ def homePage(request):
         'home.html',
         context={'subject_list': Subject.objects.all()},
     )
+
 
 def aboutpage(request):
     return render('about.html')
@@ -34,6 +38,7 @@ def get_topic(request):
             return HttpResponse(status=500)
         else:
             return HttpResponse(status=404)
+
 
 def get_subtopic(request):
     if request.method == 'GET':
@@ -64,3 +69,56 @@ def get_video_url(request):
         else:
             return HttpResonse(status=400)
 
+
+def set_video_survey_result(request):
+    if request.method == 'POST':
+        try:
+            args = {}
+            args.update(csrf(request))
+            mistakes = request.POST['mistakes']
+            presentation = request.POST['presentation']
+            informative = request.POST['informative']
+            quality = request.POST['quality']
+            video_id = request.POST['video_id']
+
+            video = Video.objects.filter(idvideo=video_id).first()
+            #TODO write to DB
+            return HttpResponse(status=200)
+        except Exception as e:
+            logger.exception(str(e))
+        else:
+            return HttpResponse(status=400)
+
+
+def set_video_not_appropriate(request):
+    if request.method == 'POST':
+        try:
+            args = {}
+            args.update(csrf(request))
+            relevant = request.POST['relevant']
+            level = request.POST['level']
+            video_id = request.POST['video_id']
+
+            video = Video.objects.filter(idvideo=video_id).first()
+            #TODO write to DB
+            return HttpResponse(status=200)
+        except Exception as e:
+            logger.exception(str(e))
+        else:
+            return HttpResponse(status=400)
+
+
+def set_video_not_available(request):
+    if request.method == 'POST':
+        try:
+            args = {}
+            args.update(csrf(request))
+            video_id = request.POST['video_id']
+
+            video = Video.objects.filter(idvideo=video_id).first()
+            #TODO write to DB
+            return HttpResponse(status=200)
+        except Exception as e:
+            logger.exception(str(e))
+        else:
+            return HttpResponse(status=400)

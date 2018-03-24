@@ -23,6 +23,8 @@
 
     <link href="{% static "css/home.css" %}" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> {# google font #}
+
     <title>Home page</title>
 </head>
 
@@ -32,7 +34,8 @@
     <h1>Оцените видео</h1>
 </div>
 
-<div class="finder">
+<div id="mainMenuBarAnchor"></div>
+<div class="card" id="mainMenuBar">
     <div class="topics">Выберите предмет:
         {% if subject_list %}
             <select id="select_subject">
@@ -57,6 +60,8 @@
 <div class="content" id="videos_column">
 
 </div>
+
+<input type="hidden" id="current-video-id">
 
 <div class="footer">
 </div>

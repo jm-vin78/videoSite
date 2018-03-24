@@ -67,7 +67,7 @@ $('select#select_subtopic').change(function () {
                 $column.append('<div class="card">' +
                     '<iframe width="520" height="415" src="' + url + '" id="' + json[i].pk + '">' +
                     '</iframe>' +
-                    '<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#video-id\').val(\'' + json[i].pk + '\')" style="cursor: pointer">' +
+                    '<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#current-video-id\').val(\'' + json[i].pk + '\')" style="cursor: pointer">' +
                     'Оценить видео' +
                     '</button>' +
                     '</div>');
@@ -80,8 +80,54 @@ $(document).ready(function () {
     var $select_subject = $('select#select_subject');
     $select_subject.change()
 
-    $('#firstSurveyModal').on('hidden.bs.modal', function(e){
+    $('#firstSurveyModal').on('hidden.bs.modal', function () {
         $('#firstModalForm').trigger('reset');
-    })
+    });
+
+    $('#secondSurveyModal').on('hidden.bs.modal', function () {
+        $('#secondModalForm').trigger('reset');
+    });
+
+    // Cache selectors for faster performance.
+    var $window = $(window),
+        $mainMenuBar = $('#mainMenuBar'),
+        $mainMenuBarAnchor = $('#mainMenuBarAnchor');
+
+    // Run this on scroll events.
+    $window.scroll(function () {
+        var window_top = $window.scrollTop();
+        var div_top = $mainMenuBarAnchor.offset().top;
+        if (window_top > div_top) {
+            // Make the div sticky.
+            $mainMenuBar.addClass('stick');
+            $mainMenuBarAnchor.height($mainMenuBar.height());
+        } else {
+            // Unstick the div.
+            $mainMenuBar.removeClass('stick');
+            $mainMenuBarAnchor.height(0);
+        }
+    });
+
+    function getCookie(c_name) {
+        if (document.cookie.length > 0) {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start, c_end));
+            }
+        }
+        return "";
+    }
+
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            }
+        });
+    });
+
 });
 
