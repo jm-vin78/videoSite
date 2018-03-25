@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Subject, Topic, Subtopic, Video
+from .models import Subject, Topic, Subtopic, Video, Survey
 from django.core import serializers
 from django.core.handlers.base import logger
 from django.http import HttpResponse
@@ -81,11 +81,25 @@ def set_video_survey_result(request):
             quality = request.POST['quality']
             video_id = request.POST['video_id']
 
+            survey = Survey()
+            survey.mistakes = mistakes
+            survey.presentation = presentation
+            survey.informative = informative
+            survey.quality = quality
+            survey.videoid = video_id
+            survey.relevant = '1'
+            survey.level = 'Школьному'
+            survey.save()
+
             video = Video.objects.filter(idvideo=video_id).first()
+            video.available = '1'
+            video.save()
+
+            # Survey.create(mistakes=mistakes, presentation=presentation, informative=informative, quality=quality, videoid=video_id)
             #TODO write to DB
             return HttpResponse(status=200)
         except Exception as e:
-            logger.exception(str(e))
+            logger.exception("Failed to receive survey results", str(e))
         else:
             return HttpResponse(status=400)
 
@@ -99,13 +113,22 @@ def set_video_not_appropriate(request):
             level = request.POST['level']
             video_id = request.POST['video_id']
 
+            survey = Survey()
+            survey.relevant = relevant
+            survey.level = level
+            survey.videoid = video_id
+            survey.save()
+
             video = Video.objects.filter(idvideo=video_id).first()
+            video.available = '1'
+            video.save()
+
             #TODO write to DB
             return HttpResponse(status=200)
         except Exception as e:
             logger.exception(str(e))
         else:
-            return HttpResponse(status=400)
+            return HttpResponse("Failed to receive results appropriate", status=400)
 
 
 def set_video_not_available(request):
@@ -116,9 +139,12 @@ def set_video_not_available(request):
             video_id = request.POST['video_id']
 
             video = Video.objects.filter(idvideo=video_id).first()
+            video.available = '0'
+            video.save()
+
             #TODO write to DB
             return HttpResponse(status=200)
         except Exception as e:
             logger.exception(str(e))
         else:
-            return HttpResponse(status=400)
+            return HttpResponse("Failed to receive results video unavailable", status=400)

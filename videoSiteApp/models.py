@@ -77,9 +77,24 @@ class Video(models.Model):
     description = models.TextField(blank=True, null=True)
     category = models.TextField(blank=True, null=True)
     subtopicid = models.IntegerField(db_column='subtopicId')
+    available = models.IntegerField(db_column='available')
 
     # has foreign key to channel - channelUrl, on delete cascade
-
     class Meta:
         managed = False
         db_table = 'video'
+
+class Survey(models.Model):
+    idsurvey = models.IntegerField(db_column='idSurvey', primary_key=True)
+    relevant = models.IntegerField(blank=True, null=True)
+    level = models.TextField()
+    mistakes = models.IntegerField(blank=True, null=True)
+    presentation = models.IntegerField(blank=True, null=True)
+    informative = models.IntegerField(blank=True, null=True)
+    quality = models.IntegerField(blank=True, null=True)
+    videoid = models.IntegerField(db_column='videoId')
+
+    class Meta:
+        managed = False
+        db_table = 'survey'
+
