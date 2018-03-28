@@ -9,6 +9,6 @@ urlpatterns = [
     url('set_video_survey_result', views.set_video_survey_result, name='set_video_survey_result'),
     url('set_video_not_available', views.set_video_not_available, name='set_video_not_available'),
     url('set_video_not_appropriate', views.set_video_not_appropriate, name='set_video_not_appropriate'),
-
+    url('sign_up', views.sign_up, name='sign_up'),
 ]
 

@@ -1,74 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    {% load static %}
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block title %}
+    Главная
+{% endblock %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+{% block head %}
     <script type="text/javascript" src="{% static 'js/header_scripts.js' %}"></script>
+{% endblock %}
 
-    <link href="{% static "css/home.css" %}" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> {# google font #}
-
-    <title>Home page</title>
-</head>
-
-<body>
-
-<div class="header">
-    <h1>Оцените видео</h1>
-</div>
-
-<div id="mainMenuBarAnchor"></div>
-<div class="card" id="mainMenuBar">
-    <div class="topics">Выберите предмет:
-        {% if subject_list %}
-            <select id="select_subject">
-                {% for subject in subject_list %}
-                    <option id='{{ subject.idsubject }}' value="{{ subject.idsubject }}">{{ subject.name }}</option>
-                {% endfor %}
+{% block content %}
+    <div id="mainMenuBarAnchor"></div>
+    <div class="card" id="mainMenuBar">
+        <div class="topics">Выберите предмет:
+            {% if subject_list %}
+                <select id="select_subject">
+                    {% for subject in subject_list %}
+                        <option id='{{ subject.idsubject }}' value="{{ subject.idsubject }}">{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+        <div class="topics">Выберите раздел:
+            <select id="select_topic">
+                <option value="">---</option>
             </select>
-        {% endif %}
+        </div>
+        <div class="topics">Выберите тему:
+            <select id="select_subtopic">
+                <option value="">---</option>
+            </select>
+        </div>
     </div>
-    <div class="topics">Выберите раздел:
-        <select id="select_topic">
-            <option value="">---</option>
-        </select>
-    </div>
-    <div class="topics">Выберите тему:
-        <select id="select_subtopic">
-            <option value="">---</option>
-        </select>
-    </div>
-</div>
 
-<div class="content" id="videos_column">
+    <div class="content" id="videos_column"></div>
 
-</div>
+    <input type="hidden" id="current-video-id">
+{% endblock %}
 
-<input type="hidden" id="current-video-id">
-
-<div class="footer">
-</div>
-
-{% include 'survey_modal.html' %}
-
-<script type="text/javascript" src="{% static 'js/footer_scripts.js' %}"></script>
-
-</body>
-</html>
+{% block footer %}
+    {% include 'survey_modal.html' %}
+    <script type="text/javascript" src="{% static 'js/footer_scripts.js' %}"></script>
+{% endblock %}

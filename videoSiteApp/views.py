@@ -4,6 +4,11 @@ from django.core import serializers
 from django.core.handlers.base import logger
 from django.http import HttpResponse
 from django.template.context_processors import csrf
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+from .forms import SignUpForm
 
 
 # Create your views here.
@@ -148,3 +153,18 @@ def set_video_not_available(request):
             logger.exception(str(e))
         else:
             return HttpResponse("Failed to receive results video unavailable", status=400)
+
+
+def sign_up(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home.html')
+    else:
+        form = SignUpForm()
+    return render(request, 'sign_up.html', {'form': form})
