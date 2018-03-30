@@ -6,7 +6,11 @@ from django.http import HttpResponse
 from django.template.context_processors import csrf
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
 from django.shortcuts import render, redirect
+from django.db.models import Count
 
 from .forms import SignUpForm
 
@@ -41,8 +45,8 @@ def get_topic(request):
         except Exception as e:
             logger.exception("Failed to get topics:" + str(e))
             return HttpResponse(status=500)
-        else:
-            return HttpResponse(status=404)
+    else:
+        return HttpResponse(status=404)
 
 
 def get_subtopic(request):
@@ -56,14 +60,16 @@ def get_subtopic(request):
         except Exception as e:
             logger.exception("Failed to get subtopics:" + str(e))
             return HttpResponse(status=500)
-        else:
-            return HttpResponse(status=404)
+    else:
+        return HttpResponse(status=404)
 
 
 def get_video_url(request):
     if request.method == 'GET':
         try:
-            data = serializers.serialize('json', Video.objects.filter(subtopicid=request.GET['idsubtopic']))
+            # TODO get number of surveys from survey table and write to video table
+            videos = Video.objects.filter(subtopicid=request.GET['idsubtopic']).annotate(num_surveys=Count('survey')).values()
+            data = json.dumps(list(videos), cls=DjangoJSONEncoder)
             response = HttpResponse()
             response['Content-Type'] = "text/javascript"
             response.write(data)
@@ -71,8 +77,8 @@ def get_video_url(request):
         except Exception as e:
             logger.exception("Failed to get videos" + str(e))
             return HttpResponse(status=500)
-        else:
-            return HttpResonse(status=400)
+    else:
+        return HttpResponse(status=400)
 
 
 def set_video_survey_result(request):
@@ -91,7 +97,7 @@ def set_video_survey_result(request):
             survey.presentation = presentation
             survey.informative = informative
             survey.quality = quality
-            survey.videoid = video_id
+            survey.video_id = video_id
             survey.relevant = '1'
             survey.level = 'Школьному'
             survey.save()
@@ -101,12 +107,12 @@ def set_video_survey_result(request):
             video.save()
 
             # Survey.create(mistakes=mistakes, presentation=presentation, informative=informative, quality=quality, videoid=video_id)
-            #TODO write to DB
             return HttpResponse(status=200)
         except Exception as e:
             logger.exception("Failed to receive survey results", str(e))
-        else:
-            return HttpResponse(status=400)
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
 
 
 def set_video_not_appropriate(request):
@@ -128,12 +134,12 @@ def set_video_not_appropriate(request):
             video.available = '1'
             video.save()
 
-            #TODO write to DB
             return HttpResponse(status=200)
         except Exception as e:
             logger.exception(str(e))
-        else:
-            return HttpResponse("Failed to receive results appropriate", status=400)
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse("Failed to receive results appropriate", status=400)
 
 
 def set_video_not_available(request):
@@ -147,15 +153,15 @@ def set_video_not_available(request):
             video.available = '0'
             video.save()
 
-            #TODO write to DB
             return HttpResponse(status=200)
         except Exception as e:
             logger.exception(str(e))
-        else:
-            return HttpResponse("Failed to receive results video unavailable", status=400)
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse("Failed to receive results video unavailable", status=400)
 
 
-def sign_up(request):
+def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -167,4 +173,4 @@ def sign_up(request):
             return redirect('home.html')
     else:
         form = SignUpForm()
-    return render(request, 'sign_up.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})

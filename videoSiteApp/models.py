@@ -92,7 +92,7 @@ class Survey(models.Model):
     presentation = models.IntegerField(blank=True, null=True)
     informative = models.IntegerField(blank=True, null=True)
     quality = models.IntegerField(blank=True, null=True)
-    videoid = models.IntegerField(db_column='videoId')
+    video = models.ForeignKey(Video, db_column='videoId', on_delete=models.CASCADE)
 
     class Meta:
         managed = False

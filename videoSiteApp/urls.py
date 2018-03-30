@@ -1,5 +1,7 @@
 from django.conf.urls import url
 from videoSiteApp import views
+from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.homePage, name='home'),
@@ -9,6 +11,8 @@ urlpatterns = [
     url('set_video_survey_result', views.set_video_survey_result, name='set_video_survey_result'),
     url('set_video_not_available', views.set_video_not_available, name='set_video_not_available'),
     url('set_video_not_appropriate', views.set_video_not_appropriate, name='set_video_not_appropriate'),
-    url('sign_up', views.sign_up, name='sign_up'),
+    url('signup', views.signup, name='signup'),
+    url('login', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url('logout', auth_views.logout, {'next_page': '/login'}, name='logout')
 ]
 

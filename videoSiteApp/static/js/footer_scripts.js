@@ -61,13 +61,13 @@ $('select#select_subtopic').change(function () {
             $column.empty();
 
             for (var i = 0; i < json.length; i++) {
-                var url = json[i].fields.url;
+                var url = json[i].url;
                 url = url.replace(/https:\/\/www.youtube.com\/watch.v=(.+)/, "https://www.youtube.com/embed/$1");
                 $column.append('');
                 $column.append('<div class="card">' +
-                    '<iframe width="520" height="415" src="' + url + '" id="' + json[i].pk + '">' +
+                    '<iframe width="520" height="415" src="' + url + '" id="' + json[i].idvideo + '">' +
                     '</iframe>' +
-                    '<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#current-video-id\').val(\'' + json[i].pk + '\')" style="cursor: pointer">' +
+                    '<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#current-video-id\').val(\'' + json[i].idvideo + '\')" style="cursor: pointer">' +
                     'Оценить видео' +
                     '</button>' +
                     '</div>');
