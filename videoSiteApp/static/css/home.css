@@ -7,7 +7,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.login {
+.logout {
     text-align: right;
 }
 
@@ -86,4 +86,17 @@ button {
     background-color: #F1F1F1;
     text-align: center;
     padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
+
+.contact_text {
+    padding: 30px;
+    margin: 10px;
+    font-size: 20px;
+}
+
+/*.username {*/
+    /*text-align: right;*/
+/*}*/

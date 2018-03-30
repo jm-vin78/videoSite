@@ -70,6 +70,10 @@ $('select#select_subtopic').change(function () {
                     '<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#current-video-id\').val(\'' + json[i].idvideo + '\')" style="cursor: pointer">' +
                     'Оценить видео' +
                     '</button>' +
+                    '<div class="numberOfSurveys">'+
+                    'Оценок в базе: ' +
+                    json[i].num_surveys +
+                    '</div>'+
                     '</div>');
             }
         }

@@ -8,6 +8,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from django.db.models import Count
@@ -17,8 +18,8 @@ from .forms import SignUpForm
 
 # Create your views here.
 
-
-def homePage(request):
+@login_required
+def homepage(request):
     return render(
         request,
         'home.html',
@@ -31,7 +32,7 @@ def aboutpage(request):
 
 
 def contactpage(request):
-    return render('contact.html')
+    return render(request, 'contact.html')
 
 
 def get_topic(request):
@@ -174,3 +175,4 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+

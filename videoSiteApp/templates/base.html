@@ -32,10 +32,45 @@
 
 <div class="header">
     <h1>Оцените видео</h1>
-    <div class="login">
-        <a href="{% url 'login' %}">Войти</a>
-    </div>
+{#    {% if request.user.is_authenticated %}#}
+{#        <div class="username">Вы зашли как: {{ request.user.username }}</div>#}
+{##}
+{#    {% endif %}#}
 </div>
+
+{% if request.user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Домашняя страница </a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link {% if request.path == '/contact' %}active{% endif %}" href="{% url 'contact' %}">Обратная связь </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <div class="logout"><a href="{% url 'logout' %}">Выйти</a></div>
+    </form>
+  </div>
+</nav>
+{#    <nav class="navbar navbar-default">#}
+{#    <div class="container-fluid">#}
+{#        <div class="navbar-header">#}
+{#            <a class="navbar-brand" href="#">Оценить видео</a>#}
+{#        </div>#}
+{#        <ul class="nav navbar-nav">#}
+{#            <li class="active"><a href="{% url 'home' %}">Домашняя страница</a></li>#}
+{#            <li><a href="{% url 'contact' %}">Обратная связь</a></li>#}
+{#            <li class="logout"><a href="{% url 'logout' %}">Выйти</a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#    </nav>#}
+{% endif %}
 
 {% block content %}{% endblock %}
 
