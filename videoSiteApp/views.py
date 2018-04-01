@@ -1,17 +1,15 @@
-from django.shortcuts import render
 from .models import Subject, Topic, Subtopic, Video, Survey
 from django.core import serializers
 from django.core.handlers.base import logger
 from django.http import HttpResponse
 from django.template.context_processors import csrf
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
-from django.db.models import Count
+from django.db.models import Count, Q
 
 from .forms import SignUpForm
 
@@ -68,8 +66,15 @@ def get_subtopic(request):
 def get_video_url(request):
     if request.method == 'GET':
         try:
+            user_id = request.user.id
+            user_answered_survey = Count('survey', filter=Q(survey__userId=user_id))
             # TODO get number of surveys from survey table and write to video table
-            videos = Video.objects.filter(subtopicid=request.GET['idsubtopic']).annotate(num_surveys=Count('survey')).values()
+            videos = Video.objects\
+                .filter(subtopicid=request.GET['idsubtopic'])\
+                .annotate(num_surveys=Count('survey')) \
+                .annotate(user_answered_survey=user_answered_survey) \
+                .values()
+
             data = json.dumps(list(videos), cls=DjangoJSONEncoder)
             response = HttpResponse()
             response['Content-Type'] = "text/javascript"
@@ -101,6 +106,7 @@ def set_video_survey_result(request):
             survey.video_id = video_id
             survey.relevant = '1'
             survey.level = 'Школьному'
+            survey.userId = request.user.id
             survey.save()
 
             video = Video.objects.filter(idvideo=video_id).first()
@@ -129,6 +135,7 @@ def set_video_not_appropriate(request):
             survey.relevant = relevant
             survey.level = level
             survey.videoid = video_id
+            survey.userId = request.user.id
             survey.save()
 
             video = Video.objects.filter(idvideo=video_id).first()
@@ -171,8 +178,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home.html')
+            return redirect('/')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-

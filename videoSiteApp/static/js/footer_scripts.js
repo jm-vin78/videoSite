@@ -63,6 +63,9 @@ $('select#select_subtopic').change(function () {
             for (var i = 0; i < json.length; i++) {
                 var url = json[i].url;
                 url = url.replace(/https:\/\/www.youtube.com\/watch.v=(.+)/, "https://www.youtube.com/embed/$1");
+                var userRated = '';
+                if (json[i].user_answered_survey > 0)
+                    userRated = 'Вы уже оценили это видео';
                 $column.append('');
                 $column.append('<div class="card">' +
                     '<iframe width="520" height="415" src="' + url + '" id="' + json[i].idvideo + '">' +
@@ -73,6 +76,9 @@ $('select#select_subtopic').change(function () {
                     '<div class="numberOfSurveys">'+
                     'Оценок в базе: ' +
                     json[i].num_surveys +
+                    '</div>'+
+                    '<div class="userRated">'+
+                    userRated +
                     '</div>'+
                     '</div>');
             }

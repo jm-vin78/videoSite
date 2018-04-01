@@ -100,3 +100,7 @@ button {
 /*.username {*/
     /*text-align: right;*/
 /*}*/
+
+.userRated {
+    color: green;
+}
