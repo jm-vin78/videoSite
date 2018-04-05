@@ -98,15 +98,13 @@ def set_video_survey_result(request):
             quality = request.POST['quality']
             video_id = request.POST['video_id']
 
-            survey = Survey()
+            survey, created = Survey.objects.get_or_create(video_id=video_id, userId=request.user.id)
             survey.mistakes = mistakes
             survey.presentation = presentation
             survey.informative = informative
             survey.quality = quality
-            survey.video_id = video_id
             survey.relevant = '1'
             survey.level = 'Школьному'
-            survey.userId = request.user.id
             survey.save()
 
             video = Video.objects.filter(idvideo=video_id).first()
@@ -131,7 +129,7 @@ def set_video_not_appropriate(request):
             level = request.POST['level']
             video_id = request.POST['video_id']
 
-            survey = Survey()
+            survey, created = Survey.objects.get_or_create(video_id=video_id, userId=request.user.id)
             survey.relevant = relevant
             survey.level = level
             survey.videoid = video_id
