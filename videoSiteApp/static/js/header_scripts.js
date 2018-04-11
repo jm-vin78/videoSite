@@ -15,6 +15,7 @@ function onFirstModalSubmit() {
             success: function () {
                 showSuccessMessage();
                 $('#firstSurveyModal').modal('hide');
+                updateVideo(video_id);
             },
             error: function () {
                 showErrorMessage()
@@ -39,6 +40,7 @@ function onFirstModalSubmit() {
                 success: function () {
                     showSuccessMessage();
                     $('#firstSurveyModal').modal('hide');
+                    updateVideo(video_id);
                 },
                 error: function () {
                     showErrorMessage()
@@ -76,11 +78,35 @@ function onSecondModalSubmit() {
         success: function () {
             showSuccessMessage();
             $('#secondSurveyModal').modal('hide');
+            updateVideo(video_id);
         },
         error: function () {
             showErrorMessage()
         }
     });
+}
+
+function updateVideo(idvideo) {
+    $.ajax({
+        type: 'GET',
+        url: 'get_video',
+        data: {"idvideo": idvideo},
+        success: function (data) {
+            var json = $.parseJSON(data);
+            var video = json[0];
+            var userRated = '';
+            if (video.user_answered_survey > 0) {
+                userRated = 'Вы уже оценили это видео';
+            }
+            var videoCardDiv = $('#videoCard' + video.idvideo);
+            var userRatedDiv = videoCardDiv.find('.userRated')[0];
+            var numberOfSurveysDiv = videoCardDiv.find('.numberOfSurveys')[0];
+
+            numberOfSurveysDiv.innerText = 'Оценок в базе: ' + video.num_surveys;
+            userRatedDiv.innerText = userRated;
+        }
+    })
+    ;
 }
 
 function showValidationErrorMessage() {

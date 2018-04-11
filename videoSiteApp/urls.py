@@ -12,6 +12,7 @@ urlpatterns = [
     url('set_video_survey_result', views.set_video_survey_result, name='set_video_survey_result'),
     url('set_video_not_available', views.set_video_not_available, name='set_video_not_available'),
     url('set_video_not_appropriate', views.set_video_not_appropriate, name='set_video_not_appropriate'),
+    url('get_video', views.get_video, name='get_video'),
     url('signup', views.signup, name='signup'),
     url('login', auth_views.login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
     url('logout', auth_views.logout, {'next_page': '/login'}, name='logout'),

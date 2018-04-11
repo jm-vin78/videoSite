@@ -67,7 +67,7 @@ $('select#select_subtopic').change(function () {
                 if (json[i].user_answered_survey > 0)
                     userRated = 'Вы уже оценили это видео';
                 $column.append('');
-                $column.append('<div class="card">' +
+                $column.append('<div class="card" id="videoCard' + json[i].idvideo + '">' +
                     '<iframe width="520" height="415" src="' + url + '" id="' + json[i].idvideo + '">' +
                     '</iframe>' +
                     '<button title="Оценить видео" data-toggle="modal" data-target="#firstSurveyModal" onclick="$(\'#current-video-id\').val(\'' + json[i].idvideo + '\')" style="cursor: pointer">' +

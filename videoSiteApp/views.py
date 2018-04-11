@@ -87,6 +87,30 @@ def get_video_url(request):
         return HttpResponse(status=400)
 
 
+def get_video(request):
+    if request.method == 'GET':
+        try:
+            user_id = request.user.id
+            user_answered_survey = Count('survey', filter=Q(survey__userId=user_id))
+            # TODO get number of surveys from survey table and write to video table
+            video = Video.objects\
+                .filter(idvideo=request.GET['idvideo'])\
+                .annotate(num_surveys=Count('survey')) \
+                .annotate(user_answered_survey=user_answered_survey) \
+                .values()
+
+            data = json.dumps(list(video), cls=DjangoJSONEncoder)
+            response = HttpResponse()
+            response['Content-Type'] = "text/javascript"
+            response.write(data)
+            return response
+        except Exception as e:
+            logger.exception("Failed to get videos" + str(e))
+            return HttpResponse(status=500)
+    else:
+        return HttpResponse(status=400)
+
+
 def set_video_survey_result(request):
     if request.method == 'POST':
         try:
@@ -98,20 +122,20 @@ def set_video_survey_result(request):
             quality = request.POST['quality']
             video_id = request.POST['video_id']
 
-            survey, created = Survey.objects.get_or_create(video_id=video_id, userId=request.user.id)
-            survey.mistakes = mistakes
-            survey.presentation = presentation
-            survey.informative = informative
-            survey.quality = quality
-            survey.relevant = '1'
-            survey.level = 'Школьному'
-            survey.save()
+            Survey.objects.update_or_create(
+                video_id=video_id, userId=request.user.id,
+                defaults={'relevant': '1',
+                          'level': 'school',
+                          'userId': request.user.id,
+                          'mistakes': mistakes,
+                          'presentation': presentation,
+                          'informative': informative,
+                          'quality': quality})
 
             video = Video.objects.filter(idvideo=video_id).first()
             video.available = '1'
             video.save()
 
-            # Survey.create(mistakes=mistakes, presentation=presentation, informative=informative, quality=quality, videoid=video_id)
             return HttpResponse(status=200)
         except Exception as e:
             logger.exception("Failed to receive survey results", str(e))
@@ -129,12 +153,15 @@ def set_video_not_appropriate(request):
             level = request.POST['level']
             video_id = request.POST['video_id']
 
-            survey, created = Survey.objects.get_or_create(video_id=video_id, userId=request.user.id)
-            survey.relevant = relevant
-            survey.level = level
-            survey.videoid = video_id
-            survey.userId = request.user.id
-            survey.save()
+            Survey.objects.update_or_create(
+                video_id=video_id, userId=request.user.id,
+                defaults={'relevant': relevant,
+                          'level': level,
+                          'userId': request.user.id,
+                          'mistakes': None,
+                          'presentation': None,
+                          'informative': None,
+                          'quality': None})
 
             video = Video.objects.filter(idvideo=video_id).first()
             video.available = '1'
