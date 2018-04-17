@@ -92,7 +92,7 @@ class Survey(models.Model):
     presentation = models.IntegerField(blank=True, null=True)
     informative = models.IntegerField(blank=True, null=True)
     quality = models.IntegerField(blank=True, null=True)
-    video = models.ForeignKey(Video, db_column='videoId', on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, db_column='videoId', on_delete=models.CASCADE) # create video instance based on id specified in videoId
     userId = models.IntegerField(blank=True, null=True)
 
     class Meta:

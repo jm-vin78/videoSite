@@ -82,7 +82,7 @@ DATABASES = {
     },
     'youtubeDB': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'C:/Users/yulia/PycharmProjects/videoSite/youtubeDB.db',
+        'NAME': 'youtubeDB.db',
     }
 }
 
